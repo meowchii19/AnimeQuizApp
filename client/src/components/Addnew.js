@@ -12,10 +12,10 @@ export default function Login() {
     c: '',
   })
  
+  const [ arr, setArr ] = useState([])
 
   const handleSubmit = () => {
-    console.log(state,answer,question,imageUrl)
-    console.log(state.a)
+    console.log()
   }
   const incorrectHandleChange = (e) => {
     setState((prevState) => ({
