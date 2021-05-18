@@ -15,6 +15,10 @@ const headersData = [
     label: "Login",
     href: "/login",
   },
+  {
+    label: "update",
+    href: "/update",
+  },
 ];
 
 export default function ButtonAppBar() {
@@ -109,7 +113,7 @@ export default function ButtonAppBar() {
     };
     return (
         <header>
-          <AppBar className={header} position='static'> 
+          <AppBar className={header} position='fixed'> 
             {mobileView? displayMobile() : displayDesktop()}</AppBar>
         </header>
       )

@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Entries = require("../models/model")
 
+router.post('/post', async (req, res) =>{
+  res.send(req.body)
+})
 
 //CREATE QUESTION
 router.post('/create', async  (req, res) => {

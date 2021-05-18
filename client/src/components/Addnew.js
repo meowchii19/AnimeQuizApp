@@ -1,80 +1,98 @@
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import React, { useState } from 'react'
+import { submitQuestion } from './submitQuestion'
 
 export default function Login() {
-  const [ imageUrl, setImageUrl ] = useState('')
-  const [ question, setQuestion] = useState('')
-  const [ answer, setAnswer] = useState('')
-  const [ state, setState] = useState({
-    a: '',
-    b: '',
-    c: '',
+  const [ state, setState ] = useState({
+    question: '', 
+    imageUrl: '',
+    answer: '',
+    A: '' ,
+    B: '',  
+    C: '' ,
   })
- 
-  const [ arr, setArr ] = useState([])
 
-  const handleSubmit = () => {
-    console.log()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = document.querySelector('form')
+    console.log(form)
+    const wrongAnswers = [ state.A, state.B, state.C ]
+    const allDataInputs = {                                           
+             "image": state.imageUrl,   
+             "question": state.question,
+             "answer" : state.answer,
+             "incorrect_answers": wrongAnswers
+       }       
+     console.log(state) 
+//      submitQuestion(allDataInputs)
+    form.reset()
   }
-  const incorrectHandleChange = (e) => {
-    setState((prevState) => ({
-      ...prevState,
-      [e.target.id]:e.target.value
-    }))
+
+  const handleChange = (e) =>{
+    const value = e.target.value
+    const name = e.target.name
+    setState((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
   }
   return (
-    <form>
-      
+    <form onSubmit={handleSubmit}>
       <TextField style={{width:'50%',marginTop:'1rem'}}
-        onChange={(e)=> (setImageUrl(e.target.value))}
-                  value={imageUrl}
-                   label="IMG URL"
-                   variant="outlined"
+                  name='imageUrl'
+                    type='url'
+                     label="IMG URL"
+                    variant="outlined"
+                    required={true}
+                    onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  value={question}
-        onChange={(e)=> (setQuestion(e.target.value))}
+                  name='question'
                    id="outlined-basic"
                    label="Question"
                    variant="outlined"
+                    required={true}
+                    onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  value={answer}
+                  name='answer'
                   id="outlined-basic"
-        onChange={(e)=> (setAnswer(e.target.value))}
-                  type='text'
                    label="answer"
                    variant="outlined"
+                    required={true}
+                    onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  value={state.a}
-                   id="a"
-                  type='text'
+                    name='A'
                    label="incorrect answer A"
                    variant="outlined"
-                  onChange={incorrectHandleChange}
+                    required={true}
+                    onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  value={state.b}
-                   id="b"
-                  type='text'
+                    name='B'
+                   type='text'
                    label="incorrect answer B"
                    variant="outlined"
-                  onChange={incorrectHandleChange}
+                    required={true}
+                    onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  value={state.c}
-                   id="c"
-                  type='text'
+                    name='C'
                    label="incorrect answer C"
                    variant="outlined"
-                 onChange={incorrectHandleChange}
+                    required={true}
+                    onChange={handleChange}
                    />
-      <Button onClick={handleSubmit} style={{backgroundColor:'#24A0ED',
+      <Button type='submit'   
+              style={{backgroundColor:'#24A0ED',
                       color: 'white',
                       width:'50%',
                       fontWeight: 'bolder',
+                      height: '3rem',
                       marginTop:'1rem'}}
                       variant="contained" >
                       SUBMIT 

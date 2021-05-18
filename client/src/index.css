@@ -19,19 +19,29 @@ form{
   margin: 0 auto;
 }
 
+.App{
+ display: flex;
+ flex-direction: row; 
+}
+
+.grid{
+  position:relative;
+  margin-top: 10%;
+  display:block;
+
+}
+
 .home{
  text-align: center;
+ position: static;
 }
 
 .play{
-  background-color: green;
   color: green;
   width: 50%;
 }
 
 .container{
-  margin: 0;
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -39,6 +49,29 @@ form{
 
 .img{
   width: 100%;
+  min-height: auto;
+}
+
+.paperContainer{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-color: yellow;
+  height: 100%;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.all-img{
+  max-width: 350px;
+  max-height: 300px;
 }
 
 .button{

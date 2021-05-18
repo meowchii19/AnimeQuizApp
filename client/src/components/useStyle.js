@@ -1,7 +1,8 @@
-import { CardMedia, makeStyles} from '@material-ui/core'
+import {  makeStyles} from '@material-ui/core'
 
 export const useStyles = makeStyles((theme) => ({
   header: {
+    minHeight: '80px',
   },
   button: {
       fontFamily: "Open Sans, sans-serif",
@@ -11,10 +12,14 @@ export const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    minHeight: '80px'
   },
   '@media (max-width: 900px)': {
     paddingLeft:0,
+    header:{
+      minHeight: '60px'
+    }
   },
   root: {
     flexGrow: 1,
