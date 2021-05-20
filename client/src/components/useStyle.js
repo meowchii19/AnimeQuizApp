@@ -42,6 +42,19 @@ export const useStyles = makeStyles((theme) => ({
      border: 'none',
 	 
   },
+
+ rootGrid: {
+    flexGrow: 1,
+  },
+  paperGrid: {
+    height: '400px',
+    width: '400px' ,
+    position: 'relative'
+  },
+  control: {
+    padding: theme.spacing(2),
+  },
+
 }))
 
 export default useStyles

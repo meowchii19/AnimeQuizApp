@@ -16,9 +16,9 @@ router.post('/create', async  (req, res) => {
   })
   try{
     const save = await entry.save()
-    res.send(save)
+   res.status(200).send('OK')
   }catch(err){
-    res.send(err)
+    res.status(500).send('Internal Server Error')
   }
 }) 
 
@@ -27,9 +27,9 @@ router.post('/create', async  (req, res) => {
 router.get('/readAll', async (req, res) => {
   try{
     const entries = await Entries.find();
-    res.json(entries)
+    res.status(200).send(entries)
   }catch(err) {
-    res.json({message: err})
+    res.status(500).send('Internal Server Error')
   }
 })
 
@@ -40,19 +40,42 @@ router.get('/read/:id', async (req, res) => {
   const entry = await  Entries.findById(req.params.id)
     res.json(entry)
   }catch(err){
-    res.json({err})
+    res.status(500).send('Internal Server Error')
   }
 })
 
 
 //UPDATE QUESTION
-router.get('/update:id',  (req, res) => {
+router.patch('/update/:id',  async (req, res) => {
+const {id} = req.params
+console.log(id)
+  try{
+    const update = await Entries.updateOne(
+      { _id : req.params.id },
+      { $set:{  
+                image: req.body.image,
+                question: req.body.question,
+                answer: req.body.answer,
+                incorrect_answers: req.body.incorrect_answers
+              },
+      }
+  );
+      res.status(200).send("OK")
+  }catch(err){
+   res.status(500).send('Internal Server Error')
+  }
 }) 
 
 
 // DELETE QUESTION
-router.get('/delete:id', (req, res) => {
-  res.send('delete')
+router.delete('/delete/:id', async (req, res) => {
+  try{
+      const remove = await Entries.findOneAndDelete( { _id: req.params.id } )
+      res.status(200).send(remove)
+  }catch(err){
+    res.status(500).send('Internal Server Error')
+  }
+
 }) 
 
 

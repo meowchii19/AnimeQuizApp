@@ -1,9 +1,13 @@
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import React, { useState } from 'react'
-import { submitQuestion } from './submitQuestion'
+import React, { useEffect, useState } from 'react'
+import { TextField, Button } from '@material-ui/core'
+import { useParams, useHistory } from 'react-router-dom'
+import submitQuestion from '../login/authorizedFolder/submitQuestion'
 
-export default function Login() {
+
+export  default function UpdateForm () {
+    const history = useHistory()
+  const { id } = useParams()
+ const [ loading, setLoading ]  = useState(true)
   const [ state, setState ] = useState({
     question: '', 
     imageUrl: '',
@@ -12,11 +16,14 @@ export default function Login() {
     B: '',  
     C: '' ,
   })
+  const getData = async() => {
+    const response = await fetch(`http://localhost:4242/api/read/${id}`)
+    return response.json()
+  }
 
-  const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
+    const ROUTE = { id: id, route: 'PATCH', url: 'update' } 
     e.preventDefault()
-    const form = document.querySelector('form')
-    console.log(form)
     const wrongAnswers = [ state.A, state.B, state.C ]
     const allDataInputs = {                                           
              "image": state.imageUrl,   
@@ -24,12 +31,31 @@ export default function Login() {
              "answer" : state.answer,
              "incorrect_answers": wrongAnswers
        }       
-     console.log(state) 
-//      submitQuestion(allDataInputs)
-    form.reset()
+      submitQuestion(allDataInputs, ROUTE).then(res=> {
+        if(res.status === 200){
+          console.log(200)
+          return history.push('/update') 
+        }
+      })
   }
 
-  const handleChange = (e) =>{
+  useEffect(() => {
+    getData().then((res)=>{
+      const { image, question, answer, incorrect_answers} = res
+      setState({
+            question: question, 
+            imageUrl: image,
+            answer: answer,
+            A: incorrect_answers[0] ,
+            B: incorrect_answers[1],  
+            C: incorrect_answers[2] ,
+      })
+      setLoading(false)
+    })
+  },[])
+
+
+ const handleChange = (e) =>{
     const value = e.target.value
     const name = e.target.name
     setState((prev) => {
@@ -39,17 +65,20 @@ export default function Login() {
       }
     })
   }
-  return (
-    <form onSubmit={handleSubmit}>
+
+  return !loading  ?(
+    <form onSubmit={(e) => handleSubmit(e)}>
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  name='imageUrl'
+                    value={state.imageUrl}
+                    name='imageUrl'
                     type='url'
-                     label="IMG URL"
+                    label="IMG URL"
                     variant="outlined"
                     required={true}
                     onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
+                    value={state.question}
                   name='question'
                    id="outlined-basic"
                    label="Question"
@@ -58,14 +87,16 @@ export default function Login() {
                     onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-                  name='answer'
-                  id="outlined-basic"
+                    value={state.answer}
+                    name='answer'
+                    id="outlined-basic"
                    label="answer"
                    variant="outlined"
                     required={true}
                     onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
+                    value={state.A}
                     name='A'
                    label="incorrect answer A"
                    variant="outlined"
@@ -73,6 +104,7 @@ export default function Login() {
                     onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
+        value={state.B}
                     name='B'
                    type='text'
                    label="incorrect answer B"
@@ -81,6 +113,7 @@ export default function Login() {
                     onChange={handleChange}
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
+                    value={state.C}
                     name='C'
                    label="incorrect answer C"
                    variant="outlined"
@@ -98,5 +131,5 @@ export default function Login() {
                       SUBMIT 
         </Button>
     </form>
-  )
+  ) : <h1>Loading ...</h1>
 }

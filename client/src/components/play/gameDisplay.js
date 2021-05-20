@@ -1,10 +1,11 @@
 import { Paper, Grid, Button } from '@material-ui/core'
-import { useStyles } from './useStyle'
+import { useStyles } from '../useStyle'
 import React from 'react'
-//
- export  const GetQuestion = ({_id, image, question, answer, incorrect_answers}) => {
+export  const GetQuestion = (data) => {
+
     const classes = useStyles()
 
+  const {data :{ image, question, answer, incorrect_answers}} = data
     return (
       <React.Fragment>
         <Grid item xs={12}>
@@ -23,7 +24,7 @@ import React from 'react'
         </Grid>
         <Grid  item xs={6}>
           <Paper className={classes.buttons}>
-            <Button style={{padding:'10px',
+            <Button onClick={data.nextQuestion} style={{padding:'10px',
                           width:'100%' }}>
                     {answer}
             </Button>
