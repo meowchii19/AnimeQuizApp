@@ -1,7 +1,7 @@
 import { Link as RouterLink} from 'react-router-dom'
 import { Link, MenuItem } from '@material-ui/core'
 
-export const getMenuChoices = (headersData,handleClose) => {
+export const MenuBarChoices = (headersData,handleClose) => {
     return headersData.map(({ label, href }) => {
       return (
         <Link
@@ -18,4 +18,4 @@ export const getMenuChoices = (headersData,handleClose) => {
       );
     });
   };
-export default getMenuChoices
+export default MenuBarChoices

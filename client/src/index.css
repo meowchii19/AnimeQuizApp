@@ -24,12 +24,6 @@ form{
  flex-direction: row; 
 }
 
-.grid{
-  position:relative;
-  margin-top: 10%;
-  display:block;
-
-}
 
 .home{
  text-align: center;
@@ -58,7 +52,6 @@ form{
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  background-color: yellow;
   height: 100%;
 }
 
@@ -77,4 +70,34 @@ form{
 .button{
   color: #24A0ED;
 
+}
+
+.grid{
+
+  margin-top: 10%;
+  position: relative;
+  display: block;
+
+}
+
+.allQuestions{
+  display: flex;
+  flex-direction: row;
+}
+
+.updateSection{
+  margin-top: 10%;
+  width: 40%;
+  background-color: white;
+
+}
+
+.form{
+  padding: 10px;
+}
+.square{
+  border: 2px solid blue;
+  border-radius: 3%;
+  width: 30%;
+  position: fixed;
 }
