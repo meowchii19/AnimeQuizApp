@@ -25,7 +25,6 @@ export default function Login() {
        }       
     submitQuestion(allDataInputs, ROUTE).then(res=> {
       if(res.status === 200){
-        console.log('resetting the form')
          resetForm() 
       }else{
         alert('Please try again')
@@ -48,9 +47,10 @@ export default function Login() {
       }
     })
   }
+
   return (
     <form onSubmit={handleSubmit}>
-      <TextField style={{width:'50%',marginTop:'1rem'}}
+   <TextField style={{width:'50%',marginTop:'1rem'}}
                   name='imageUrl'
                     type='url'
                      label="IMG URL"
