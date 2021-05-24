@@ -43,16 +43,19 @@ form{
 
 .img{
   width: 100%;
-  min-height: auto;
+  max-height: 400px;
 }
 
+.gameDisplay{
+  background-color: red;
+}
 .paperContainer{
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
   height: 100%;
+  padding: 5px;
 }
 
 .buttons{
@@ -62,18 +65,25 @@ form{
   width: 60%;
 }
 
+.imgcontainer{
+  align-items: center;
+  position: relative;
+  width: 100%;
+  background-color: white;
+  display: flex;
+}
 .all-img{
-  max-width: 350px;
-  max-height: 300px;
+  padding-top: 3px;
+  width: 200px;
+  height: 200px ;
+  margin: auto;
 }
 
 .button{
   color: #24A0ED;
-
 }
 
 .grid{
-
   margin-top: 10%;
   position: relative;
   display: block;
@@ -83,6 +93,11 @@ form{
 .allQuestions{
   display: flex;
   flex-direction: row;
+  overflow-y: hidden;
+}
+
+.description{
+  margin: auto;
 }
 
 .updateSection{
@@ -100,4 +115,26 @@ form{
   border-radius: 3%;
   width: 30%;
   position: fixed;
+}
+
+.transformScore{
+  color: green;
+}
+
+.transformLife{
+  color: red;
+}
+
+@media  (max-width: 900px){
+  .img{
+    height: 30vh;
+    width: 100%;
+  }
+  .gameover{
+    font-size: 3vw;
+  }
+  .playagain-button{
+    width: 80%;
+    font-size: 3vw;
+  }
 }

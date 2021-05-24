@@ -3,27 +3,47 @@ import Button from '@material-ui/core/Button'
 import React, { useState } from 'react'
 
 export default function Login() {
-  const [ user, setUser ] = useState('')
-  const [ pass, setPass] = useState('')
+  const [ state, setState ] = useState({
+    userName: '', 
+    password: '',
+  })
 
-  const handleSubmit = () => {
-    console.log(user,pass)
+  const handleChange = (e) =>{
+    const value = e.target.value
+    const name = e.target.name
+    setState((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(state.userName,state.password)
+  }
+
   return (
-    <form>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <TextField style={{width:'50%',marginTop:'10%'}}
-        onChange={(e)=> (setUser(e.target.value))}
+                    name='userName'
                    label="Username"
                    variant="outlined"
+                   required={true}
+                   onChange={handleChange}
+
                    />
       <TextField style={{width:'50%',marginTop:'1rem'}}
-        onChange={(e)=> (setPass(e.target.value))}
-                   id="outlined-basic"
+                  name='password'
                    label="Password"
                    type='password'
+                   required={true}
                    variant="outlined"
+                   onChange={handleChange}
                    />
-      <Button onClick={handleSubmit} style={{backgroundColor:'#24A0ED',
+      <Button type="submit"
+                style={{backgroundColor:'#24A0ED',
                       color: 'white',
                       width:'50%',
                       marginTop:'1rem'}}
