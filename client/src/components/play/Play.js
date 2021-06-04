@@ -44,7 +44,7 @@ export default function Play() {
     if( life === 0) {
       setTimeout(function(){ 
         setGameEnd(true)
-      ; }, 540)
+      ; }, 500)
     }
     setLives(life)
   }
@@ -84,7 +84,7 @@ export default function Play() {
       </div>
     </div> :!loading && question ? 
  (   <div className={ changeBackground()  }>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className='pangarap'>
         <GetQuestion  data={ question } 
                       score={score}
                       lives={lives}

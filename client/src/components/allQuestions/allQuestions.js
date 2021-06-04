@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import Example from './Example'
-import FetchAllQuestions from '../FetchAllQuestions/FetchAllQuestions'
+import axios from 'axios'
 
 export default function DisplayAllQuestions () {
   const [ state, setState ] = useState({
@@ -13,13 +13,18 @@ export default function DisplayAllQuestions () {
       arr:data
     })
   }
+  const quest = async () => {
+    try{
+      const data = await axios.get('http://localhost:4242/api/readAll')
+      return data
+    }catch(err) {
+      console.log(err)
+    }
+  }
 
   useEffect(()=> {
-    FetchAllQuestions()
-          .then(res=>res.json())
-          .then(data => handleData(data))
-
-      setLoading(false)
+    
+    quest().then(res => handleData(res.data)).then(()=>setLoading(false))
   }, [])
 
   return !loading && state.arr.length >= 1 ?( 

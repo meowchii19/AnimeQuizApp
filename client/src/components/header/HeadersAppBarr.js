@@ -13,7 +13,7 @@ export default function HeadersAppBarr() {
   
   useEffect(() => {
     const setResponsive = () => {
-      return window.innerWidth < 800 
+      return window.innerWidth < 950 
             ? setState((prevState) => ({ ...prevState, mobileView: true }))
             : setState((prevState) => ({ ...prevState, mobileView: false }))
     }
@@ -24,7 +24,7 @@ export default function HeadersAppBarr() {
     return (
         <header>
           <AppBar className={header} position='fixed'> 
-            {mobileView? <MobileDisplay prop={headerNavLinks}/> : <DesktopDisplay prop={headerNavLinks} />}</AppBar>
+            {mobileView? <MobileDisplay /> : <DesktopDisplay  />}</AppBar>
         </header>
       )
 }

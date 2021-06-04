@@ -9,14 +9,6 @@ export const useStyles = makeStyles((theme) => ({
    padding: '10px',
    width: '100%'
 },
- play:{
-  border: ' 4px solid royalblue',
-  borderRadius: '3%',
-  padding: '10px',
-    flexGrow: 1,
-    width: '50%',
-    margin: 'auto'
- },
  question:{
   border: '4px solid royalblue',
   fontWeight:'bolder',
@@ -34,6 +26,13 @@ export const useStyles = makeStyles((theme) => ({
   textAlign: 'center',
  },
 
+ play:{
+  border: ' 4px solid royalblue',
+  borderRadius: '3%',
+  padding: '10px',
+    flexGrow: 1,
+    margin: 'auto'
+ },
  wrongAnswer:{
   border: '4px solid #ee5a1d',
   fontWeight:'bolder',
@@ -48,7 +47,6 @@ export const useStyles = makeStyles((theme) => ({
   borderRadius: '3%',
   padding: '10px',
     flexGrow: 1,
-    width: '50%',
     margin: 'auto'
  },
  correct:{
@@ -56,7 +54,6 @@ export const useStyles = makeStyles((theme) => ({
   borderRadius: '3%',
   padding: '10px',
     flexGrow: 1,
-    width: '50%',
     margin: 'auto'
  },
  notClicked:{

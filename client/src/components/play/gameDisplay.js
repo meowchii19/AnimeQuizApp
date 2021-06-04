@@ -1,7 +1,9 @@
-import { Paper, Grid, Button } from '@material-ui/core'
+import { Paper, Grid } from '@material-ui/core'
 import { useStyles } from '../useStyle'
 import React, { useState  } from 'react'
 import Countdown from './Countdown'
+import MapChoices from './MapChoices'
+
 
 export const GetQuestion = (data) => {
 
@@ -18,7 +20,6 @@ export const GetQuestion = (data) => {
           data :{ image, question, answer } } = data
   
   const handleClicks = (e,value,a) => {
-    console.log(classes.question)
     if(!showAnswer){
       if(value === a){
       setDisplayCorrect(true)
@@ -30,6 +31,7 @@ export const GetQuestion = (data) => {
     }
       setShowAnswer(!showAnswer)
       renderNextQuestion()
+      setShowAnswer(true)
   }
 }
 
@@ -39,7 +41,7 @@ export const GetQuestion = (data) => {
         setDisplayWrong(false)
         setShowAnswer(false) 
         nextQuestion()
-      ; },500)
+      ; },400)
   }
 
   const changeColor = () => {
@@ -52,39 +54,20 @@ export const GetQuestion = (data) => {
       return classes.question
   }
 
-const MapChoices = ({choices}) => {
-
-      return choices.map((value, k) => {
-          const borderColor = showAnswer?  value === answer ? '4px solid #00ff00' :
-                              '4px solid #ee5a1d' : '3px solid #08f4f4'
-          return (
-              <Grid  key={k}item xs={6}>
-                  <Button className={classes.notClicked} 
-                    onClick={ ({target}) => handleClicks(target,value, answer)}
-                    style={{ border: `${borderColor}` }}
-                  >
-                          {value}
-                  </Button>
-              </Grid>
-          )}
-      )
-    }
-
   return (
       <React.Fragment  >
-        <Grid item xs={12}>
+        <Grid item xs={12} className='dontwalk'>
           <div style={{width: '100%',
                       display: 'flex',
-                      fontSize: '2vh',
                       alignItems: 'center',
                       justifyContent: 'space-evenly', 
                       position:'relative'}}>
             <h4> Score: {score}</h4>
-            {showAnswer ? <Countdown wrongAnswer={wrongAnswer} renderNextQuestion={renderNextQuestion}/> : <div><h4>Time : 00</h4></div> }
+            {!showAnswer ? <Countdown wrongAnswer={wrongAnswer} renderNextQuestion={renderNextQuestion}/> : <div><h4>Time : 00</h4></div> }
             <h4 > Lives : {lives}</h4>
           </div>
           <Paper style={{boxShadow:'none'}}className={classes.img}>
-            <img className='img' src={image} alt='steins'/>
+            <img className='img' src={image} alt='steins' referrerPolicy="origin"/>
           </Paper>
         </Grid>
         <Grid item xs={12}>
@@ -92,7 +75,7 @@ const MapChoices = ({choices}) => {
                         {question}
           </Paper>
         </Grid>
-        { choices ? <MapChoices choices={choices}/> : <MapChoices choices={['','','','']}/> }
+        { choices ? <MapChoices showAnswer={showAnswer} answer={answer} choices={choices} handleClicks={handleClicks}/> : <MapChoices choices={['','','','']}/> }
       </React.Fragment>
   ) 
   }

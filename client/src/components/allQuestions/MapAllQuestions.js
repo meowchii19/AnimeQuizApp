@@ -1,6 +1,7 @@
 import {  Paper, Grid, Button }  from '@material-ui/core/';
 import  useStyles from '../useStyle'
 import { GoToUpdateForm, deleteQuestion } from './buttonFunctions'
+import React from 'react'
 
 const Buttons = (prop) => {
 
@@ -29,13 +30,14 @@ export const MapAllQuestions = (prop) => {
               <div className='imgcontainer'>
                 <img className='all-img'
                       src={value.image}
-                      alt={value._id} />
+                      alt={value._id}
+                      referrerPolicy='strict-origin-when-cross-origin'/>
               </div>
                   <div className='description'>
                     <h4>Question: <em>{value.question}</em></h4>
                     <h4> Answer:  <em> {value.answer}</em></h4>
                     {value.incorrect_answers.map((v,k)=>(
-                      <h4 style={{ fontSize:'1.0rem'}}key={k}>Incorrect Answer: <em>{v}</em></h4>
+                      <h4 style={{ fontSize:'1.0rem'}}key={k}>Answer: <em>{v}</em></h4>
                     ))}
                   </div>
                     <div className='buttons'>

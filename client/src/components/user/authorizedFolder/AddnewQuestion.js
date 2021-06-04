@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import React, { useState } from 'react'
-import { submitQuestion } from './submitQuestion'
+import axios from 'axios'
 
 export default function Login() {
   const [ state, setState ] = useState({
@@ -13,23 +13,26 @@ export default function Login() {
     C: '' ,
   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const ROUTE = { id:'', route: 'POST', url: 'create' }
-    const wrongAnswers = [ state.A, state.B, state.C ]
-    const allDataInputs = {                                           
-             "image": state.imageUrl,   
-             "question": state.question,
-             "answer" : state.answer,
-             "incorrect_answers": wrongAnswers
-       }       
-    submitQuestion(allDataInputs, ROUTE).then(res=> {
-      if(res.status === 200){
-         resetForm() 
-      }else{
-        alert('Please try again')
-      }
-    })
+  const handleSubmit = async (e) => {
+    try{
+        e.preventDefault()
+        const wrongAnswers = [ state.A, state.B, state.C ]
+        const allDataInputs = {                                           
+                 "image": state.imageUrl,   
+                 "question": state.question,
+                 "answer" : state.answer,
+                 "incorrect_answers": wrongAnswers
+           }       
+          await axios.post('http://localhost:4242/api/create', allDataInputs).then(res=> {
+          if(res.status === 200){
+             resetForm() 
+          }else{
+            alert('Please try again')
+            }
+          })
+    }catch(err){
+      console.log(err)
+    }
   }
   
   const resetForm = () => {

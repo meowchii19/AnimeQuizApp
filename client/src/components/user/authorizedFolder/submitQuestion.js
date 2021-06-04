@@ -1,7 +1,6 @@
 
 
-
-export const submitQuestion = async ({image , question, answer, incorrect_answers}, route) => {
+export const submitQuestion = async ({ image, question, answer, incorrect_answers }, route) => {
 
     const URL = `http://localhost:4242/api/${route.url}/${route.id}`
     const fetchData =  await fetch(URL, {
