@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import MobileDisplay from './Display/MobileDisplay'
 import { useStyles } from '../useStyle'
 import DesktopDisplay from './Display/DesktopDisplay'
-import headerNavLinks from './headerNavLinks'
 
 export default function HeadersAppBarr() {
 

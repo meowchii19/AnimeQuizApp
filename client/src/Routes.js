@@ -4,6 +4,7 @@ import Play from './components/play/Play'
 import Home from './components/Home'
 import Addnew from './components/user/authorizedFolder/AddnewQuestion'
 import LogOutBtn from './components/user/logout'
+import SignUp from './components/user/SignUp'
 import UpdateForm from './components/allQuestions/updateForm'
 import GetAllQuestions from './components/allQuestions/allQuestions'
 import { Container } from '@material-ui/core'
@@ -32,7 +33,10 @@ export default function Routes() {
               <Route path='/add' component={Addnew} />
               { 
                 loggedIn === false && (
+                  <React.Fragment>
                 <Route path='/login' component={Login} />
+                <Route path='/signup' component={SignUp} />
+            </React.Fragment>
                 )}
               { 
                 loggedIn === true && (
