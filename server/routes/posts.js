@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const Entries = require("../models/model")
+const auth = require('./verifytoken')
 
 router.post('/post', async (req, res) =>{
   res.send(req.body)
 })
 
 //CREATE QUESTION
-router.post('/create', async  (req, res) => {
+router.post('/create', auth, async  (req, res) => {
   const entry = new Entries({
     image: req.body.image,
     question: req.body.question,
@@ -24,7 +25,7 @@ router.post('/create', async  (req, res) => {
 
 
 //READ ALL QUESTIONS
-router.get('/readAll', async (req, res) => {
+router.get('/readAll', auth, async (req, res) => {
   try{
     const entries = await Entries.find();
     res.status(200).send(entries)
@@ -33,20 +34,28 @@ router.get('/readAll', async (req, res) => {
   }
 })
 
-
-//READ QUESTION
-router.get('/read/:id', async (req, res) => {
+//read one and update one
+router.get('/read/:id', auth, async (req, res) => {
   try{
-  const entry = await  Entries.findById(req.params.id)
-    res.json(entry)
-  }catch(err){
+    const entry = await Entries.findById(req.params.id);
+    res.send(entry)
+  }catch(err) {
     res.status(500).send('Internal Server Error')
   }
 })
 
+//READ QUESTION
+router.get('/play',  async (req, res) => {
+  try{
+    const entries = await Entries.find();
+    res.status(200).send(entries)
+  }catch(err) {
+    res.status(500).send('Internal Server Error')
+  }
+})
 
 //UPDATE QUESTION
-router.patch('/update/:id',  async (req, res) => {
+router.patch('/update/:id', auth,  async (req, res) => {
 const {id} = req.params
 console.log(id)
   try{
@@ -68,7 +77,7 @@ console.log(id)
 
 
 // DELETE QUESTION
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', auth, async (req, res) => {
   try{
       const remove = await Entries.findOneAndDelete( { _id: req.params.id } )
       res.status(200).send(remove)

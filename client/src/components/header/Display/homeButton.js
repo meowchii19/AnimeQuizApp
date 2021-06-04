@@ -1,6 +1,7 @@
 import useStyles from '../../useStyle'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core/'
+import React from 'react'
 
 export const HomeButton = () => {
     const { button } = useStyles();

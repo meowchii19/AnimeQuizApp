@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 import MenuBurgerChoices from '../MenuBurgerChoices'
 import HomeButton from './homeButton'
 import useStyles from '../../useStyle'
+import headerNavLinks from '../headerNavLinks'
 
-const MobileDisplay = (headersData) => {
+const MobileDisplay = () => {
 
   const {  toolbar } = useStyles();
 
@@ -35,7 +36,7 @@ const MobileDisplay = (headersData) => {
           anchorEl={anchor}
           open={Boolean(anchor)}
           onClose={handleClose}>
-        <div>{MenuBurgerChoices(headersData.prop, handleClose)}</div>
+        <div>{MenuBurgerChoices(headerNavLinks, handleClose)}</div>
       </Menu>
 
     </Toolbar>

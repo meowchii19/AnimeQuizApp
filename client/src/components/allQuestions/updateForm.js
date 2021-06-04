@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { useParams, useHistory } from 'react-router-dom'
-import submitQuestion from '../login/authorizedFolder/submitQuestion'
+import axios from 'axios'
 
 
 export  default function UpdateForm () {
@@ -16,32 +16,41 @@ export  default function UpdateForm () {
     B: '',  
     C: '' ,
   })
+
   const getData = async() => {
-    const response = await fetch(`http://localhost:4242/api/read/${id}`)
-    return response.json()
+    try{
+      const response = await axios.get(`http://localhost:4242/api/read/${id}`)
+      return response
+    }catch(err) {
+      console.log(err)
+    }
   }
 
-    const handleSubmit = (e) => {
-    const ROUTE = { id: id, route: 'PATCH', url: 'update' } 
-    e.preventDefault()
-    const wrongAnswers = [ state.A, state.B, state.C ]
-    const allDataInputs = {                                           
-             "image": state.imageUrl,   
-             "question": state.question,
-             "answer" : state.answer,
-             "incorrect_answers": wrongAnswers
-       }       
-      submitQuestion(allDataInputs, ROUTE).then(res=> {
-        if(res.status === 200){
-          console.log(200)
-          return history.push('/update') 
-        }
-      })
+    const handleSubmit = async (e) => {
+      try {
+          e.preventDefault()
+          const wrongAnswers = [ state.A, state.B, state.C ]
+          const allDataInputs = {                                           
+                   "image": state.imageUrl,   
+                   "question": state.question,
+                   "answer" : state.answer,
+                   "incorrect_answers": wrongAnswers
+             }       
+          await axios.patch(`http://localhost:4242/api/update/${id}`, allDataInputs)
+            .then(res=> {
+              if(res.status === 200){
+                  return history.push('/update') 
+              }
+            })
+      }catch(err){
+        console.log(err)
+      }
   }
 
   useEffect(() => {
-    getData().then((res)=>{
-      const { image, question, answer, incorrect_answers} = res
+    
+    getData().then(({data})=>{
+      const { image, question, answer, incorrect_answers} = data
       setState({
             question: question, 
             imageUrl: image,

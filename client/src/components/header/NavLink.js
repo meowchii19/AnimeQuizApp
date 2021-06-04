@@ -1,14 +1,13 @@
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useStyles } from '../useStyle'
+import React from 'react'
 
 
-export const NavLinks = (routeLink) => {
+export const NavLinks = ({headerNavLink}) => {
     const { button } = useStyles();
 
-    const routeLinks = routeLink.prop 
-
-    return routeLinks.map(({ label, href }) => {
+    return headerNavLink().map(({ label, href }) => {
       return (
           
         <Button

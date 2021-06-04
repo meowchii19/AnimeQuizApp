@@ -3,26 +3,30 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const app = express();
 const cors = require('cors')
-
-app.use(cors())
+const cookieParser = require('cookie-parser')
 
 dotenv.config()
-//Import Routes
 app.use(express.json())
+app.use(cookieParser())
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3000'
+}))
+
+//Import Routes
+const authRoute = require('./routes/auth')
 const postsRoute = require('./routes/posts')
 
+//Routes Middlewares
 app.use('/api', postsRoute)
+app.use('/auth', authRoute)
 
-//Middlewares
 
-//ROUTES
-app.get('/', (req, res) => {
-  res.send('body')
-})
-
+ 
 mongoose.connect(process.env.DB_CONNECT,
                  { useNewUrlParser: true , useUnifiedTopology: true },
                  () => console.log('db connected'))
+
 //LISTEN TO PORT
 const PORT =  process.env.PORT ||  1337
 app.listen(PORT, () => console.log(`listening at port ${PORT}`))

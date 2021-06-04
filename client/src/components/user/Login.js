@@ -1,13 +1,18 @@
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+import AuthContext from '../../context/AuthContext'
 
 export default function Login() {
+  const history = useHistory()
+  const { getLoggedIn } = useContext(AuthContext)
   const [ state, setState ] = useState({
-    userName: '', 
+    email: '', 
     password: '',
   })
-
+ 
   const handleChange = (e) =>{
     const value = e.target.value
     const name = e.target.name
@@ -19,15 +24,29 @@ export default function Login() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(state.userName,state.password)
+    try{
+      const allDataInputs = {
+        "email": state.email,
+        "password": state.password,
+      }
+      await axios.post("http://localhost:4242/auth/login", allDataInputs)
+        .then(res=> {
+          if( res.status === 200 ){
+            getLoggedIn()
+            history.push('/update')
+          }
+        })
+    } catch(err){
+      console.log('err',err)
+    }
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <TextField style={{width:'50%',marginTop:'10%'}}
-                    name='userName'
+                  name='email'
                    label="Username"
                    variant="outlined"
                    required={true}
@@ -49,7 +68,8 @@ export default function Login() {
                       marginTop:'1rem'}}
                 variant="contained" >
                  Login 
-        </Button>
+      </Button>
+
     </form>
   )
 }
