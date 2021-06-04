@@ -39,6 +39,7 @@ export default function SignUp() {
   const history = useHistory()
   const { getLoggedIn } = useContext(AuthContext)
   const [ state, setState ] = useState({
+    username: '', 
     email: '', 
     password: '',
   })
@@ -58,10 +59,11 @@ export default function SignUp() {
     e.preventDefault()
     try{
       const allDataInputs = {
+        "username": state.username,
         "email": state.email,
         "password": state.password,
       }
-      await axios.post("http://localhost:4242/auth/login", allDataInputs)
+      await axios.post("http://localhost:4242/auth/register", allDataInputs)
         .then(res=> {
           if( res.status === 200 ){
             getLoggedIn()
@@ -81,31 +83,41 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form}  onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
-            id="email"
-            label="Email Address"
-            type='email'
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="username"
+            name="username"
             autoFocus
+            required={true}
             onChange={handleChange}
           />
           <TextField
             variant="outlined"
             margin="normal"
-            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            type='email'
+            autoComplete="email"
+            required={true}
+            onChange={handleChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
             fullWidth
             name="password"
             label="Password"
             type="password"
             id="password"
+            required={true}
             onChange={handleChange}
           />
           <Button
@@ -115,12 +127,12 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Log In
+            Sign In
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="signup" to="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="login" to="/login" variant="body2">
+                {"Back to Login"}
               </Link>
             </Grid>
           </Grid>
