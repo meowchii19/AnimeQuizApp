@@ -2,13 +2,18 @@ const router = require('express').Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
+const { registerValidation, loginValidation } = require('../validation')
 
 
 router.post('/register', async (req, res) => {
+	
 
 	//checking if user is already exist
 	try{
+			//validate data before registering new user
+			const { error } = registerValidation(req.body)
+			if (error) return res.status(400).send( { message: error.details[0].message })
+
 			const emailExist = await User.findOne({email: req.body.email});
 			if(emailExist) return res.status(400).send({ message:'Email already exists' })
 

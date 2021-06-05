@@ -71,7 +71,8 @@ export default function SignUp() {
           }
         })
     } catch(err){
-      console.log('err',err)
+      const { message } = err.response.data
+      alert(message)
     }
   }
 
@@ -87,6 +88,7 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form}  onSubmit={handleSubmit}>
           <TextField
+            helperText="must be 6 characters long"
             variant="outlined"
             margin="normal"
             fullWidth
@@ -98,6 +100,7 @@ export default function SignUp() {
             onChange={handleChange}
           />
           <TextField
+            helperText="Email must be unique"
             variant="outlined"
             margin="normal"
             fullWidth
@@ -110,6 +113,7 @@ export default function SignUp() {
             onChange={handleChange}
           />
           <TextField
+            helperText="must be 6 characters long"
             variant="outlined"
             margin="normal"
             fullWidth
