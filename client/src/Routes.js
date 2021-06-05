@@ -16,7 +16,6 @@ export default function Routes() {
   
   const { loggedIn } = useContext(AuthContext)
 
-  console.log(loggedIn)
 
   return (
     <Router>
