@@ -27,7 +27,7 @@ export default function Home() {
         <IconButton>
           <a className='githubLink' href="https://github.com/meowchii19/AnimeQuizApp"
             target="_blank"
-            rel="noreferrer">
+            rel="noopener noreferrer">
             <GitHubIcon className="github"/>
             <span>Meowchii19</span>
           </a>

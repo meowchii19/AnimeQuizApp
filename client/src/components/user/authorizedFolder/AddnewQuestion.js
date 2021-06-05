@@ -1,9 +1,14 @@
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import React, { useState } from 'react'
+import { Container,Button,Link } from '@material-ui/core/'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
+import AuthContext from '../../../context/AuthContext'
+
 
 export default function Login() {
+  
+  const { loggedIn } = useContext(AuthContext)
+  
   const [ state, setState ] = useState({
     question: '', 
     imageUrl: '',
@@ -51,9 +56,9 @@ export default function Login() {
     })
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-   <TextField style={{width:'50%',marginTop:'1rem'}}
+  const Form = () => {
+    return  <form style={{marginTop: '2vh'}} onSubmit={handleSubmit}>
+    <TextField style={{width:'50%',marginTop:'1rem'}}
                   name='imageUrl'
                     type='url'
                      label="IMG URL"
@@ -109,6 +114,29 @@ export default function Login() {
                       variant="contained" >
                       SUBMIT 
         </Button>
-    </form>
-  )
+    </form> 
+ 
+  }
+
+  const message = loggedIn === undefined ?  <h1>Loading ....</h1>:<h1>Ooops!! You must be Logged In to view this page</h1> 
+
+  const IsLoggedin = ({message}) => {
+    return <Container style={{display:"flex", justifyContent: "space-around", flexDirection: "column", height: "30vh", alignItems:'center'}}>
+      {message}
+      {loggedIn === false  && (
+        <Link href="login" to="/login" variant="body2">
+          {"Go to Login Page"}
+        </Link>
+      )}
+      </Container>
+    } 
+
+    return  <div>
+      { loggedIn === undefined && (<IsLoggedin message={message}/>)  }
+      { loggedIn === true && (
+        <Form />
+      )}
+      { loggedIn === false && (<IsLoggedin message={message}/>)  }
+    </div>    
+  
 }

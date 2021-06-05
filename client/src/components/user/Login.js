@@ -62,14 +62,15 @@ export default function SignUp() {
         "password": state.password,
       }
       await axios.post("http://localhost:4242/auth/login", allDataInputs)
-        .then(res=> {
+        .then(res => {
           if( res.status === 200 ){
             getLoggedIn()
             history.push('/update')
           }
         })
     } catch(err){
-      console.log('err',err)
+      const {message} = err.response.data 
+      alert(message)
     }
   }
 
@@ -85,6 +86,7 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
+            helperText="Must be valid Email"
             variant="outlined"
             margin="normal"
             required
@@ -98,6 +100,7 @@ export default function SignUp() {
             onChange={handleChange}
           />
           <TextField
+            helperText="password must be 6 characters long"
             variant="outlined"
             margin="normal"
             required
