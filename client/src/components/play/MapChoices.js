@@ -10,11 +10,11 @@ export const MapChoices = ({ choices, handleClicks, answer, showAnswer }) => {
                               '3px solid #ee5a1d' : '3px solid #08f4f4'
           return (
               <Grid  key={k}item xs={6}>
-                  <Button data-buttons className={classes.notClicked} 
+                  <Button className={classes.notClicked} 
                     style={{ border: `${borderColor}` }}
                     onClick={ ({target}) => handleClicks(target,value, answer)}
                   >
-                    <h3>{value}</h3>
+                    <h3 className={classes.answers}>{value}</h3>
                   </Button>
               </Grid>
           )}

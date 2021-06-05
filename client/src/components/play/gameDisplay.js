@@ -67,11 +67,11 @@ export const GetQuestion = (data) => {
             <h4 > Lives : {lives}</h4>
           </div>
           <Paper style={{boxShadow:'none'}}className={classes.img}>
-            <img className='img' src={image} alt='steins' referrerPolicy="origin"/>
+            <img className='img' style={{borderRadius: "10px"}}src={image} alt='steins' referrerPolicy="origin"/>
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={changeColor()} >
+          <Paper style={{borderRadius: "10px"}} className={changeColor()} >
                         {question}
           </Paper>
         </Grid>

@@ -56,12 +56,21 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     margin: 'auto'
  },
+  answers:{
+    fontSize: '0.8em'
+  },
  notClicked:{
+    textTransform: 'none',
    padding: '10px',
    width: '100%',
+   borderRadius: '10px',
 '@media (max-width: 900px)':{
-  fontSize: '2vw',
+  notClicked:{
+    fontSize: '0.6em',
+    textTransform: 'none'
+  }
 }
+
 },
 playagain :{
   fontSize: '3vh',

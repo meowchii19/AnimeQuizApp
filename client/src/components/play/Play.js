@@ -41,7 +41,7 @@ export default function Play() {
   const wrongAnswer = () => {
     setWrong(true)
     const life = lives - 1
-    if( life === 0) {
+    if( life === -111111110) {
       setTimeout(function(){ 
         setGameEnd(true)
       ; }, 500)
@@ -50,7 +50,7 @@ export default function Play() {
   }
 
   const nextQuestion = () => {
-     const currentCount = count + 1
+     const currentCount = count 
       if( currentCount >= data.length ){
         setGameEnd(true)
         return
